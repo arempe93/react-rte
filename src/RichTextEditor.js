@@ -1,6 +1,6 @@
 /* @flow */
 import React, {Component} from 'react';
-import {CompositeDecorator, Editor, EditorState, Modifier, RichUtils} from 'draft-js';
+import {CompositeDecorator, EditorState, Modifier, RichUtils} from 'draft-js';
 import getDefaultKeyBinding from 'draft-js/lib/getDefaultKeyBinding';
 import changeBlockDepth from './lib/changeBlockDepth';
 import changeBlockType from './lib/changeBlockType';
@@ -15,6 +15,7 @@ import cx from 'classnames';
 import autobind from 'class-autobind';
 import EventEmitter from 'events';
 import {BLOCK_TYPE} from 'draft-js-utils';
+import DraftJSPluginsEditor from 'draft-js-plugins-editor';
 
 import './Draft.global.css';
 import styles from './RichTextEditor.css';
@@ -28,7 +29,7 @@ const MAX_LIST_DEPTH = 2;
 // Custom overrides for "code" style.
 const styleMap = {
   CODE: {
-    backgroundColor: '#f3f3f3',
+    backgroundColor: '#ff0000',
     fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
     fontSize: 16,
     padding: 2,
@@ -125,7 +126,7 @@ export default class RichTextEditor extends Component {
       <div className={cx(styles.root, className)} style={rootStyle}>
         {editorToolbar}
         <div className={combinedEditorClassName} style={editorStyle}>
-          <Editor
+          <DraftJSPluginsEditor
             {...otherProps}
             blockStyleFn={composite(defaultBlockStyleFn, blockStyleFn)}
             customStyleMap={customStyleMap}
